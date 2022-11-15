@@ -526,7 +526,7 @@ namespace ET
 		public string Token { get; set; }
 
 		[ProtoMember(2)]
-		public string AccountID { get; set; }
+		public long AccountID { get; set; }
 
 	}
 

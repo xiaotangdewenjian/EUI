@@ -6,11 +6,11 @@ namespace ET
         General = 0,
         BlackList = 1,
     }
-    public class Account
+    public class Account : Entity, IAwake
     {
-        public string AccountName;
-        public string Password;
-        public long CreateTime;
-        public int SceneType;
+        public string AccountName { get; set; }
+        public string Password { get; set; }
+        public long CreateTime { get; set; }
+        public int SceneType { get; set; }
     }
 }
