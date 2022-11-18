@@ -28,6 +28,35 @@ namespace ET
 
             return ErrorCode.ERR_Success;
 
+
+        }
+
+        public static async ETTask<int> GetServerInfo(Scene zoneScene)
+        {
+            A2C_GetServerInfos a2cgetserverinfos = (A2C_GetServerInfos)await zoneScene.GetComponent<SessionComponent>().Session.Call(new C2A_GetServerInfos()
+            {
+                AccountID = zoneScene.GetComponent<AccountInfoComponent>().AccountID,
+                Token = zoneScene.GetComponent<AccountInfoComponent>().Token
+            });
+
+            #region 收到服务器发回来的区有误
+            if (a2cgetserverinfos.Error != ErrorCode.ERR_Success)
+            {
+                return a2cgetserverinfos.Error;
+                Log.Debug("没有获取到服务器");
+            }
+            #endregion
+
+            //serverinfo 装了两个字段，serverinfocomponent装了serverinfo,zonescene挂了serverinfocomponent
+            foreach (var serverstruct in a2cgetserverinfos.ServerInfoProtoList)
+            {
+                ServerInfo serverInfo = zoneScene.GetComponent<ServerInfoComponent>().AddChild<ServerInfo>();
+                serverInfo.FromMessage(serverstruct);
+                zoneScene.GetComponent<ServerInfoComponent>().Add(serverInfo);
+            }
+
+            await ETTask.CompletedTask;
+            return ErrorCode.ERR_Success;
         }
     }
 }

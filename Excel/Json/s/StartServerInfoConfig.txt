@@ -1,0 +1,4 @@
+{"list":[
+{"_t":"StartServerInfoConfig","_id":1,"ServerName":"1"},
+{"_t":"StartServerInfoConfig","_id":2,"ServerName":"1"},
+]}

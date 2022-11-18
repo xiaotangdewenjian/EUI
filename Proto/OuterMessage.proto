@@ -246,7 +246,6 @@ message C2A_LoginAccount // IRequest
 	string AccountName = 1;
 	string Password = 2;
 }
-
 message A2C_LoginAccount // IResponse
 {
 	int32 RpcId = 90;
@@ -256,7 +255,43 @@ message A2C_LoginAccount // IResponse
 	int64 AccountID = 2;
 }
 
+
+
+
+
+
 message A2C_Disconnect //IMessage
 {
 	int32 Error = 1;
+}
+
+
+
+
+
+
+
+
+
+//ResponseType A2C_GetServerInfos
+message C2A_GetServerInfos // IRequest
+{
+	int32 RpcId = 90;
+	string Token = 1;
+	int64 AccountID = 2;
+}
+
+message ServerInfoProto
+{
+	int32 ID = 1;
+	int32 Status = 2;
+	string ServerName = 3;
+}
+
+message A2C_GetServerInfos // IResponse
+{
+	int32 RpcId = 90;
+	int32 Error = 91;
+	string Message = 92;
+	repeated ServerInfoProto ServerInfoProtoList = 1;
 }

@@ -51,7 +51,8 @@ namespace ET
 
             #region 登录中心服查询
             StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(1,"LoginCenter");//1服的LoginCenter
-            long LoginCenterInstanceID = startSceneConfig.InstanceId;//这个instance就是actor通讯的地址
+            long LoginCenterInstanceID = startSceneConfig.InstanceId;//这个instance就是actor通讯的地址 262152
+            Log.Debug(LoginCenterInstanceID.ToString());
             var loginaccountResponse = (L2A_LoginAccountResponse)await ActorMessageSenderComponent.Instance.Call(LoginCenterInstanceID,new A2L_LoginAccountRequest() { AccountID = account.Id});//账号服务器生成的accountID发送给登陆中心服，从而让他记录一下,LoginCenterInstanceID是提前配置好的，就像constvalue中的地址一样
             if (loginaccountResponse.Error != ErrorCode.ERR_Success)
             {

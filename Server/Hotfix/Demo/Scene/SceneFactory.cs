@@ -42,6 +42,7 @@ namespace ET
                     break;
                 case SceneType.LoginCenter:
                     scene.AddComponent<LoginInfiRecordComponent>();
+                    scene.AddComponent<ServerInfoManagerComponent>();
                    break;
             }
 

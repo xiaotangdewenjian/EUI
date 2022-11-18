@@ -30,7 +30,10 @@ namespace ET
 			if(errcode != ErrorCode.ERR_Success)
 			{
 				Log.Debug("aaaaaa");
+				return;
 			}
+			self.DomainScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
+			self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Lobby);
 
 		}
 		

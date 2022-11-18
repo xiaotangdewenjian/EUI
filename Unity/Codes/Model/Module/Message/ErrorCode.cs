@@ -14,5 +14,7 @@ namespace ET
         // 110000 - 200000是抛异常的错误
         // 200001以上不抛异常
         public const int ERR_PasswordWrong = 200005; //密码错误
+        public const int ERR_Wrong = 200006; //密码错误
+        public const int ERR_Token = 200007; //令牌错误
     }
 }
