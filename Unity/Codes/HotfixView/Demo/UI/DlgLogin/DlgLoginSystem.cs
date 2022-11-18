@@ -20,13 +20,18 @@ namespace ET
 			
 		}
 		
-		public static void OnLoginClickHandler(this DlgLogin self)
+		public static async void OnLoginClickHandler(this DlgLogin self)
 		{
-			LoginHelper.Login(
-				self.DomainScene(), 
-				ConstValue.LoginAddress, 
-				self.View.E_AccountInputField.GetComponent<InputField>().text, 
-				self.View.E_PasswordInputField.GetComponent<InputField>().text).Coroutine();
+			int errcode =  await LoginHelper.Login(
+													self.DomainScene(), 
+													ConstValue.LoginAddress, 
+													self.View.E_AccountInputField.GetComponent<InputField>().text, 
+													self.View.E_PasswordInputField.GetComponent<InputField>().text);
+			if(errcode != ErrorCode.ERR_Success)
+			{
+				Log.Debug("aaaaaa");
+			}
+
 		}
 		
 		public static void HideWindow(this DlgLogin self)

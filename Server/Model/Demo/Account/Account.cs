@@ -10,7 +10,5 @@ namespace ET
     {
         public string AccountName { get; set; }
         public string Password { get; set; }
-        public long CreateTime { get; set; }
-        public int SceneType { get; set; }
     }
 }

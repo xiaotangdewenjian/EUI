@@ -1,5 +1,6 @@
 
 
+using ET.Demo.ALoginCenter;
 using System.Net;
 
 namespace ET
@@ -39,6 +40,9 @@ namespace ET
                 case SceneType.Account:
                     scene.AddComponent<NetKcpComponent, IPEndPoint, int>(startSceneConfig.OuterIPPort, SessionStreamDispatcherType.SessionStreamDispatcherServerOuter);
                     break;
+                case SceneType.LoginCenter:
+                    scene.AddComponent<LoginInfiRecordComponent>();
+                   break;
             }
 
             return scene;
