@@ -27,12 +27,26 @@ namespace ET
 													ConstValue.LoginAddress, 
 													self.View.E_AccountInputField.GetComponent<InputField>().text, 
 													self.View.E_PasswordInputField.GetComponent<InputField>().text);
-			if(errcode != ErrorCode.ERR_Success)
-			{
-				Log.Debug("aaaaaa");
-				return;
-			}
-			self.DomainScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
+            #region 登录错误啥都不干打印出登录错误
+            if (errcode != ErrorCode.ERR_Success)
+            {
+                Log.Debug("登录错误");
+                return;
+            }
+            #endregion
+
+            #region 服务器错误啥都不干打印出服务器错误
+            errcode = await LoginHelper.GetServerInfo(self.DomainScene());
+            if (errcode != ErrorCode.ERR_Success)
+            {
+                Log.Debug("服务器错误");
+                return;
+            }
+            #endregion
+
+
+
+            self.DomainScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
 			self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Lobby);
 
 		}

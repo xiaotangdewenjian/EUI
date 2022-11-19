@@ -12,7 +12,7 @@ namespace ET
             self.serverinfolist.Clear();
         }
     }
-
+    [FriendClass(typeof(ServerInfoComponent))]
     public static class ServerInfoComponentSystem
     {
         public static void Add(this ServerInfoComponent self,ServerInfo serverInfo)

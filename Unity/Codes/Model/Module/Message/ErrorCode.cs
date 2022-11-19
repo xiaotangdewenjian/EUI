@@ -16,5 +16,6 @@ namespace ET
         public const int ERR_PasswordWrong = 200005; //密码错误
         public const int ERR_Wrong = 200006; //密码错误
         public const int ERR_Token = 200007; //令牌错误
+        public const int ERR_NameChong = 200008; //重名错误
     }
 }
