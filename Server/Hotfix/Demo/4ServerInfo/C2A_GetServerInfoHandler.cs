@@ -20,10 +20,13 @@ namespace ET
             }
 
             #region 通过的话把account服务器查询到的区服结构体返回给client
-            foreach (var ele in session.DomainScene().GetComponent<ServerInfoManagerComponent>().ServerInfoList)//ServerInfoManagerComponent的Awake会拿到数据库中的服务器
-            {
-                response.ServerInfoProtoList.Add(ele.ToMessage());
-            }
+            //foreach (var ele in session.DomainScene().GetComponent<ServerInfoManagerComponent>().ServerInfoList)//ServerInfoManagerComponent的Awake会拿到数据库中的服务器
+            //{
+            //    response.ServerInfoProtoList.Add(ele.ToMessage());
+            //}
+            response.ServerInfoProtoList.Add(new ServerInfoProto() { ID = 1, Status = 1, ServerName = "破阵子" });
+            response.ServerInfoProtoList.Add(new ServerInfoProto() { ID = 1, Status = 1, ServerName = "凌雪阁" });
+            response.ServerInfoProtoList.Add(new ServerInfoProto() { ID = 1, Status = 1, ServerName = "暗影岛" });
             response.Error = ErrorCode.ERR_Success;
             reply();
             #endregion

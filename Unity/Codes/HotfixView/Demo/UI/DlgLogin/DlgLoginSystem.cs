@@ -47,7 +47,7 @@ namespace ET
 
 
             self.DomainScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_Login);
-			self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Lobby);
+			self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_ChooseServer);
 
 		}
 		

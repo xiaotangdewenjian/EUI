@@ -32,8 +32,6 @@ namespace ET
                 return;
             }
 
-
-
             #endregion
 
            
@@ -44,7 +42,7 @@ namespace ET
             newroleInfo.ServerID = request.ServerID;
 
 
-            newroleInfo.Status = (int)RoleInfoState.Normal;
+            newroleInfo.Status = 1;
             newroleInfo.CreateTime = TimeHelper.ServerNow();
             newroleInfo.LastLoginTime = 0;
 

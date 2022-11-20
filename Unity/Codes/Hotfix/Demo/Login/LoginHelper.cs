@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 
 
 namespace ET
@@ -77,7 +78,7 @@ namespace ET
                 AccountID = zonescene.GetComponent<AccountInfoComponent>().AccountID,
                 Token = zonescene.GetComponent<AccountInfoComponent>().Token,
                 Name = name,
-                ServerID = zonescene.GetComponent<ServerInfoComponent>().CurrentServerID,
+                ServerID = 1,
             }) ;
             if(a2ccreaterole.Error != ErrorCode.ERR_Success)
             {
@@ -93,6 +94,93 @@ namespace ET
 
 
             await ETTask.CompletedTask;
+            return ErrorCode.ERR_Success;
+        }
+
+        public static async ETTask<int> GetRole(Scene zonescene)
+        {
+            A2C_GetRole a2C_GetRole = (A2C_GetRole) await zonescene.GetComponent<SessionComponent>().Session.Call(new C2A_GetRole()
+            {
+                AccountID=zonescene.GetComponent<AccountInfoComponent>().AccountID,
+                Token=zonescene.GetComponent<AccountInfoComponent>().Token,
+                ServerID = 1,
+            });
+            if(a2C_GetRole.Error != ErrorCode.ERR_Success)
+            {
+                return ErrorCode.ERR_Wrong;
+            }
+            zonescene.GetComponent<RoleInfoComponent>().roleinfolist.Clear();
+            foreach(var ele in a2C_GetRole.RoleInfoList)
+            {
+                RoleInfo roleInfo = zonescene.GetComponent<RoleInfoComponent>().AddChild<RoleInfo>();
+                roleInfo.FromMessage(ele);
+                zonescene.GetComponent<RoleInfoComponent>().roleinfolist.Add(roleInfo);
+            }
+            return ErrorCode.ERR_Success;
+        }
+
+        public static async ETTask<int> GetReamKey(Scene zonescene)
+        {
+            A2C_GetRealmKey a2C_GetRealmKey =(A2C_GetRealmKey)await zonescene.GetComponent<SessionComponent>().Session.Call(new C2A_GetRealmKey()
+            {
+                AccountID = zonescene.GetComponent<AccountInfoComponent>().AccountID,
+                Token = zonescene.GetComponent<AccountInfoComponent>().Token,
+                ServerID = 1,
+            });
+            if(a2C_GetRealmKey.Error != ErrorCode.ERR_Success)
+            {
+                Log.Debug("realm失败");
+                return ErrorCode.ERR_Wrong;
+            }
+
+            #region 记录realm返回的信息，存在AccountInfoComponent里面
+            zonescene.GetComponent<AccountInfoComponent>().RealmKey = a2C_GetRealmKey.RealmKey;
+            zonescene.GetComponent<AccountInfoComponent>().RealmKeyAddress = a2C_GetRealmKey.RealmKeyAddress;
+            #endregion
+
+            #region 现在已经拿到了与realm通信的令牌和地址，要与account永别了
+            zonescene.GetComponent<SessionComponent>().Session.Dispose();
+            #endregion
+
+            return ErrorCode.ERR_Success;
+        }
+
+        public static async ETTask<int> EnterGame(Scene zonescene)
+        {
+            string realmaddress = zonescene.GetComponent<AccountInfoComponent>().RealmKeyAddress;
+            Session session = zonescene.GetComponent<NetKcpComponent>().Create(NetworkHelper.ToIPEndPoint(realmaddress));
+
+            #region 通过realmkey，让realm帮我拿到gate的key（随机）和address（127.0.0.1:10003）
+            R2C_LoginRealm r2C_LoginRealm = (R2C_LoginRealm)await session.Call(new C2R_LoginRealm()
+            {
+                AccountId = zonescene.GetComponent<AccountInfoComponent>().AccountID,
+                RealmTokenKey = zonescene.GetComponent<AccountInfoComponent>().RealmKey,
+            });
+
+            if (r2C_LoginRealm.Error != ErrorCode.ERR_Success)
+            {
+                Log.Debug("登录realm失败");
+                return ErrorCode.ERR_Wrong;
+            }
+            #endregion
+
+            #region 和realm永别r2c_loginrealm还在
+            session.Dispose();
+            #endregion
+
+            #region 把连接好的gsession存储到SessionComponent中，以便其他函数调用
+            Session gsession = zonescene.GetComponent<NetKcpComponent>().Create(NetworkHelper.ToIPEndPoint(r2C_LoginRealm.GateAddress));
+            zonescene.GetComponent<SessionComponent>().Session = gsession;
+            #endregion
+
+            //开登录gate
+            G2C_LoginGameGate g2C_LoginGameGate = (G2C_LoginGameGate) await gsession.Call(new C2G_LoginGameGate() 
+            { Key = r2C_LoginRealm.GateSessionKey,
+                Account = zonescene.GetComponent<AccountInfoComponent>().AccountID,
+                RoleId = zonescene.GetComponent<RoleInfoComponent>().CurrentRoleID,
+            });
+
+            Log.Debug("登录gate成功");
             return ErrorCode.ERR_Success;
         }
     }
