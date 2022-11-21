@@ -4,6 +4,7 @@ namespace ET
     {
         protected override void Run(EventType.SceneChangeStart args)
         {
+            args.ZoneScene.GetComponent<UIComponent>().CloseWindow(WindowID.WindowID_Role);
             RunAsync(args).Coroutine();
         }
         

@@ -175,13 +175,27 @@ namespace ET
 
             //开登录gate
             G2C_LoginGameGate g2C_LoginGameGate = (G2C_LoginGameGate) await gsession.Call(new C2G_LoginGameGate() 
-            { Key = r2C_LoginRealm.GateSessionKey,
+            {   Key = r2C_LoginRealm.GateSessionKey,
                 Account = zonescene.GetComponent<AccountInfoComponent>().AccountID,
                 RoleId = zonescene.GetComponent<RoleInfoComponent>().CurrentRoleID,
             });
 
             Log.Debug("登录gate成功");
+
+            //开始进入游戏
+
+            G2C_MyEnterGame g2C_MyEnterGame = (G2C_MyEnterGame)await gsession.Call(new C2G_MyEnterGame() { });
+
+            if(g2C_MyEnterGame.Error != ErrorCode.ERR_Success)
+            {
+                Log.Debug("EnterGame第一阶段错误");
+                return ErrorCode.ERR_Wrong;
+            }
+            Log.Debug("登录游戏成功");
+
             return ErrorCode.ERR_Success;
+
+
         }
     }
 }

@@ -22,12 +22,12 @@ namespace ET
         
         public static void Add(this PlayerComponent self, Player player)
         {
-            self.idPlayers.Add(player.Id, player);
+            self.idPlayers.Add(player.AccountID, player);
         }
 
-        public static Player Get(this PlayerComponent self,long id)
+        public static Player Get(this PlayerComponent self,long AccountID)
         {
-            self.idPlayers.TryGetValue(id, out Player gamer);
+            self.idPlayers.TryGetValue(AccountID, out Player gamer);
             return gamer;
         }
 

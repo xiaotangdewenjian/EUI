@@ -433,3 +433,18 @@ message G2C_LoginGameGate // IResponse
 }
 
 
+
+//ResponseType G2C_MyEnterGame
+message C2G_MyEnterGame // IRequest
+{
+	int32 RpcId = 1;
+}
+
+message G2C_MyEnterGame // IResponse
+{
+	int32 RpcId = 1;
+	int32 Error = 2;
+	string Message = 3;
+	// 自己unitId
+	int64 MyId = 4;
+}

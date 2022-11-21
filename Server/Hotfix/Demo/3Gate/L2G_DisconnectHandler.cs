@@ -16,11 +16,16 @@ namespace ET
                 return;
             }
 
-            scene.GetComponent<PlayerComponent>().Remove(request.AccountID);
-            player.Dispose();
-            response.Error = ErrorCode.ERR_Wrong;
-            await ETTask.CompletedTask;
-            
+            scene.GetComponent<GateSessionKeyComponent>().Remove(request.AccountID);
+            Session gsession = Game.EventSystem.Get(player.sessioninstanceid) as Session;
+            if(gsession != null && !gsession.IsDisposed)
+            {
+                gsession.Send(new A2C_Disconnect() { });
+                await TimerComponent.Instance.WaitAsync(1000);
+                gsession.Dispose();
+            }
+            player.sessioninstanceid = 0;
+            player.AddComponent<PlayerOfflineOutTimeComponent>();//10秒后将玩家踢下线
             reply();
         }
     }

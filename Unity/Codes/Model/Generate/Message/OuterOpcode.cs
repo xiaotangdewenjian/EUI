@@ -49,5 +49,7 @@ namespace ET
 		 public const ushort R2C_LoginRealm = 10046;
 		 public const ushort C2G_LoginGameGate = 10047;
 		 public const ushort G2C_LoginGameGate = 10048;
+		 public const ushort C2G_MyEnterGame = 10049;
+		 public const ushort G2C_MyEnterGame = 10050;
 	}
 }

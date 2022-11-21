@@ -10,7 +10,7 @@ namespace ET
     {
         protected override async ETTask Run(Scene scene, A2L_LoginAccountRequest request, L2A_LoginAccountResponse response, Action reply)
         {
-            #region 不存在则直接告诉账号服务器这次成功
+            #region 不存在则直接告诉账号服务器这次成功//里面的account消息，是c2l_loginrecordhandler添加的
             if (!scene.GetComponent<LoginInfiRecordComponent>().IsExist(request.AccountID))// 这个id是在account服务器随机生成的
             {
                 response.Error = ErrorCode.ERR_Success;

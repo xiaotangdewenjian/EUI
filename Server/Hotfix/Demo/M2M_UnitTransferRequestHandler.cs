@@ -6,13 +6,14 @@ namespace ET
 	[ActorMessageHandler]
 	public class M2M_UnitTransferRequestHandler : AMActorRpcHandler<Scene, M2M_UnitTransferRequest, M2M_UnitTransferResponse>
 	{
+		//这个scene是map
 		protected override async ETTask Run(Scene scene, M2M_UnitTransferRequest request, M2M_UnitTransferResponse response, Action reply)
 		{
 			await ETTask.CompletedTask;
 			UnitComponent unitComponent = scene.GetComponent<UnitComponent>();
 			Unit unit = request.Unit;
 			
-			unitComponent.AddChild(unit);
+			unitComponent.AddChild(unit);//感觉可以不加
 			unitComponent.Add(unit);
 
 			foreach (Entity entity in request.Entitys)

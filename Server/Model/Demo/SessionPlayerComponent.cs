@@ -5,5 +5,7 @@
 	{
 		public long PlayerId;
         public long PlayerInstanceId;
+        public long AccountID;
+        public bool isLoginAgain = false;
     }
 }
