@@ -25,7 +25,7 @@ namespace ET
 
             if (roleInfos == null || roleInfos.Count == 0)
             {
-                response.Error = ErrorCode.ERR_Success;
+                response.Error = ErrorCode.ERR_Wrong;
                 reply();
                 return;
             }

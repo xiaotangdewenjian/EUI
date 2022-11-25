@@ -78,10 +78,10 @@ namespace ET
 		/// <summary>Id</summary>
 		[ProtoMember(1)]
 		public int Id { get; set; }
-		/// <summary>所属进程</summary>
+		/// <summary>1</summary>
 		[ProtoMember(2)]
 		public int Process { get; set; }
-		/// <summary>所属区</summary>
+		/// <summary>1</summary>
 		[ProtoMember(3)]
 		public int Zone { get; set; }
 		/// <summary>类型</summary>

@@ -63,8 +63,6 @@ namespace ET
 
             player.PlayerState = PlayerState.Game;
             #endregion
-
-
         }
     }
 }

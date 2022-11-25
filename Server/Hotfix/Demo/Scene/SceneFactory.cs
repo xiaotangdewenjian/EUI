@@ -44,6 +44,9 @@ namespace ET
                     scene.AddComponent<LoginInfiRecordComponent>();
                     scene.AddComponent<ServerInfoManagerComponent>();
                    break;
+                case SceneType.UnitCache:
+                    scene.AddComponent<UnitCacheComponent>();
+                    break;
             }
 
             return scene;

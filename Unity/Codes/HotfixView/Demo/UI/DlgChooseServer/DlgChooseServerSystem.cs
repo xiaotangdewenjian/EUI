@@ -22,12 +22,6 @@ namespace ET
         public static async void ENterServer(this DlgChooseServer self)
 		{
 
-			int errcoed = await LoginHelper.GetRole(self.DomainScene());
-			if(errcoed != ErrorCode.ERR_Success)
-			{
-				Log.Debug("没有拿到角色");
-				return;
-			}
             self.DomainScene().GetComponent<UIComponent>().HideWindow(WindowID.WindowID_ChooseServer);
             self.DomainScene().GetComponent<UIComponent>().ShowWindow(WindowID.WindowID_Role);
         }

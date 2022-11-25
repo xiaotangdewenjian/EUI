@@ -38,6 +38,7 @@ namespace ET
                     self.frameClickMap.Z = self.ClickPoint.z;
                     self.ZoneScene().GetComponent<SessionComponent>().Session.Send(self.frameClickMap);
                 }
+                Log.Debug("aaaaaa");
             }
 
             // KeyCode.R
