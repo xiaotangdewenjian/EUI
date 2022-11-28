@@ -11,16 +11,16 @@ namespace ET
         public override void Awake(UnitCacheComponent self)
         {
             self.UnitCacheKeyList.Clear();
-            foreach(Type type in Game.EventSystem.GetTypes().Values)
+            foreach (Type type in Game.EventSystem.GetTypes().Values)
             {
-                if(type != typeof(IUnitCache) && typeof(IUnitCache).IsAssignableFrom(type))
+                //不是IUnitCache但是又继承自IUnitCache
+                if (type != typeof(IUnitCache) && typeof(IUnitCache).IsAssignableFrom(type))
                 {
                     self.UnitCacheKeyList.Add(type.Name);
-                    Log.Debug(type.Name);
                 }
             }
-            
-            foreach(string key in self.UnitCacheKeyList)
+
+            foreach (string key in self.UnitCacheKeyList)
             {
                 UnitCache unitCache = self.AddChild<UnitCache>();
                 unitCache.key = key;
@@ -90,8 +90,9 @@ namespace ET
                         unitCache.key = key;
                         self.UnitCaches.Add(key, unitCache);
                     }
-
-                    if(list.Count > 0)
+                    unitCache.AddOrUpdate(entity);
+                    list.Add(entity);
+                    if (list.Count > 0)
                     {
                         await DBManagerComponent.Instance.GetZoneDB(self.DomainZone()).Save(id, list);
                     }
@@ -107,13 +108,6 @@ namespace ET
                 cache.Delete(id);
             }
         }
-
-
-
-
-
-
-
 
 
 

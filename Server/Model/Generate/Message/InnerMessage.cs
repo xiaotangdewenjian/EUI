@@ -555,4 +555,80 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(UnitCache2Other_AddOrUpdateUnit))]
+	[Message(InnerOpcode.Other2UnitCache_AddOrUpdateUnit)]
+	[ProtoContract]
+	public partial class Other2UnitCache_AddOrUpdateUnit: Object, IActorRequest
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(2)]
+		public long UnitId { get; set; }
+
+		[ProtoMember(2)]
+		public List<string> EntityTypes = new List<string>();
+
+		[ProtoMember(3)]
+		public List<byte[]> EntityBytes = new List<byte[]>();
+
+	}
+
+	[Message(InnerOpcode.UnitCache2Other_AddOrUpdateUnit)]
+	[ProtoContract]
+	public partial class UnitCache2Other_AddOrUpdateUnit: Object, IActorResponse
+	{
+		[ProtoMember(1)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(2)]
+		public int Error { get; set; }
+
+		[ProtoMember(3)]
+		public string Message { get; set; }
+
+	}
+
+	[Message(InnerOpcode.Other2UnitCache_GetUnit)]
+	[ProtoContract]
+	public partial class Other2UnitCache_GetUnit: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long UnitId { get; set; }
+
+		[ProtoMember(2)]
+		public List<string> ComponentNameList = new List<string>();
+
+	}
+
+	[Message(InnerOpcode.Other2UnitCache_DeleteUnit)]
+	[ProtoContract]
+	public partial class Other2UnitCache_DeleteUnit: Object, IActorRequest
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(1)]
+		public long UnitId { get; set; }
+
+	}
+
+	[Message(InnerOpcode.UnitCache2Other_DeleteUnit)]
+	[ProtoContract]
+	public partial class UnitCache2Other_DeleteUnit: Object, IActorResponse
+	{
+		[ProtoMember(90)]
+		public int RpcId { get; set; }
+
+		[ProtoMember(91)]
+		public int Error { get; set; }
+
+		[ProtoMember(92)]
+		public string Message { get; set; }
+
+	}
+
 }
