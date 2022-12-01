@@ -589,6 +589,7 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(UnitCache2Other_GetUnit))]
 	[Message(InnerOpcode.Other2UnitCache_GetUnit)]
 	[ProtoContract]
 	public partial class Other2UnitCache_GetUnit: Object, IActorRequest
@@ -604,6 +605,7 @@ namespace ET
 
 	}
 
+	[ResponseType(nameof(UnitCache2Other_DeleteUnit))]
 	[Message(InnerOpcode.Other2UnitCache_DeleteUnit)]
 	[ProtoContract]
 	public partial class Other2UnitCache_DeleteUnit: Object, IActorRequest

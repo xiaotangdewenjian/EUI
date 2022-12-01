@@ -35,15 +35,12 @@ namespace ET
 
             #region 正常进入
 
-            GateMapComponent gatemapcomponent = player.AddComponent<GateMapComponent>();
-            gatemapcomponent.Scene = await SceneFactory.Create(gatemapcomponent, "GateMap",SceneType.Map);
 
-            
+            (bool isNewPlayer, Unit unit) = await UnitHelper.LoadUnit(player);
 
-            Unit unit = UnitFactory.Create(gatemapcomponent.Scene, player.Id,UnitType.Player);
             unit.AddComponent<UnitGateComponent, long>(session.InstanceId);
 
-            StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(),"Map1");
+            StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Map1");
             await TransferHelper.Transfer(unit, startSceneConfig.InstanceId, startSceneConfig.Name);
 
             player.UnitId = unit.Id; //15622//之前是roleid

@@ -3,6 +3,7 @@ using UnityEngine;
 
 namespace ET
 {
+    [FriendClass(typeof(GateMapComponent))]
     [FriendClass(typeof(Unit))]
     [FriendClass(typeof(MoveComponent))]
     [FriendClass(typeof(NumericComponent))]
@@ -68,5 +69,34 @@ namespace ET
             removeUnits.Units.Add(sendUnit.Id);
             MessageHelper.SendToClient(unit, removeUnits);
         }
+
+        public static async ETTask<(bool,Unit)> LoadUnit(Player Player)
+        {
+            GateMapComponent gateMapComponent = Player.AddComponent<GateMapComponent>();
+            gateMapComponent.Scene = await SceneFactory.Create(gateMapComponent,"GateMap",SceneType.Map);
+
+            Unit unit = await UnitCacheHelper.GetUnitCache(gateMapComponent.Scene, Player.UnitId);
+            
+         
+            bool isNewUnit;
+            if(unit == null)
+            {
+                isNewUnit = true;
+            }
+            else
+            {
+                isNewUnit = false;
+            }
+            
+            
+            if(isNewUnit)
+            {
+                unit = UnitFactory.Create(gateMapComponent.Scene,Player.UnitId,UnitType.Player);
+                UnitCacheHelper.AddOrUpdateUnitAllCache(unit);
+            }
+
+            return (isNewUnit, unit);
+        }
+
     }
 }

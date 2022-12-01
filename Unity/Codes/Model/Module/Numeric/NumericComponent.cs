@@ -104,24 +104,28 @@ namespace ET
 			self.Insert(final,result,isPublicEvent);
 		}
 	}
-	
 
-	[ComponentOf(typeof(Unit))]
+
+    [ComponentOf(typeof(Unit))]
+#if SERVER
+    public class NumericComponent : Entity, IAwake, ITransfer, IUnitCache
+#else
 	public class NumericComponent: Entity, IAwake, ITransfer
-	{
-		[BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
-		public Dictionary<int, long> NumericDic = new Dictionary<int, long>();
+#endif
+    {
+        [BsonDictionaryOptions(DictionaryRepresentation.ArrayOfArrays)]
+        public Dictionary<int, long> NumericDic = new Dictionary<int, long>();
 
-		public long this[int numericType]
-		{
-			get
-			{
-				return this.GetByKey(numericType);
-			}
-			set
-			{
-				this.Insert(numericType,value);
-			}
-		}
-	}
+        public long this[int numericType]
+        {
+            get
+            {
+                return this.GetByKey(numericType);
+            }
+            set
+            {
+                this.Insert(numericType, value);
+            }
+        }
+    }
 }

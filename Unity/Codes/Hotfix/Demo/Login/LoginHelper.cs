@@ -192,6 +192,11 @@ namespace ET
                 return ErrorCode.ERR_Wrong;
             }
             Log.Debug("µÇÂ¼ÓÎÏ·³É¹¦");
+            zonescene.GetComponent<PlayerComponent>().MyId = g2C_MyEnterGame.MyId;
+
+
+
+
 
             return ErrorCode.ERR_Success;
 

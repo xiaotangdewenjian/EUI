@@ -374,7 +374,7 @@ message UnitCache2Other_AddOrUpdateUnit //IActorResponse
 
 
 
-
+//ResponseType UnitCache2Other_GetUnit
 message Other2UnitCache_GetUnit //IActorRequest
 {
     int32 RpcId = 90;
@@ -387,7 +387,7 @@ message Other2UnitCache_GetUnit //IActorRequest
 
 
 
-
+//ResponseType UnitCache2Other_DeleteUnit
 message Other2UnitCache_DeleteUnit // IActorRequest
 {
    int32 RpcId = 90;

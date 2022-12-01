@@ -39,13 +39,8 @@ namespace ET
             response.ComponentNameList.AddRange(dictionary.Keys);
             response.EntityList.AddRange(dictionary.Values);
 
-
-              finally
-            {
-                dictionary.Clear();
-                MonoPool.Instance.Recycle(dictionary);
-            }
-
+            dictionary.Clear();
+            MonoPool.Instance.Recycle(dictionary);
             reply();
             await ETTask.CompletedTask;
 
