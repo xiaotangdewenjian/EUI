@@ -92,10 +92,10 @@ namespace ET
                     }
                     unitCache.AddOrUpdate(entity);
                     list.Add(entity);
-                    if (list.Count > 0)
-                    {
-                        await DBManagerComponent.Instance.GetZoneDB(self.DomainZone()).Save(id, list);
-                    }
+                }
+                if (list.Count > 0)
+                {
+                    await DBManagerComponent.Instance.GetZoneDB(self.DomainZone()).Save(id, list);
                 }
             }
         }
