@@ -196,6 +196,10 @@ namespace ET
 
 
 
+            await zonescene.GetComponent<ObjectWait>().Wait<WaitType.Wait_SceneChangeFinish>();
+            Game.EventSystem.Publish(new EventType.EnterMapFinish() { ZoneScene = zonescene });
+
+
 
 
             return ErrorCode.ERR_Success;

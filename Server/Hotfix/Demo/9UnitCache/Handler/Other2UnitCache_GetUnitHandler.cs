@@ -15,11 +15,12 @@ namespace ET
 
             if(request.ComponentNameList.Count == 0)
             {
-                dictionary.Add(nameof(Unit), null);
-                foreach (string s in unitCacheComponent.UnitCacheKeyList)
-                {
-                    dictionary.Add(s, null);
-                }
+                //dictionary.Add(nameof(Unit), null);
+                //foreach (string s in unitCacheComponent.UnitCacheKeyList)
+                //{
+                //    Log.Debug(s);
+                //    dictionary.Add(s, null);
+                //}
             }
             else
             {
@@ -33,7 +34,10 @@ namespace ET
             foreach (var key in dictionary.Keys)
             {
                 Entity entity = await unitCacheComponent.Get(request.UnitId, key);
-                dictionary[key] = entity;
+                if(entity != null)
+                {
+                    dictionary.Add(key, entity);
+                }
             }
 
             response.ComponentNameList.AddRange(dictionary.Keys);

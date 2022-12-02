@@ -47,7 +47,7 @@ namespace ET
             #endregion
 
 
-            if (queryUnit.Error != ErrorCode.ERR_Success)
+            if (queryUnit.Error != ErrorCode.ERR_Success || queryUnit.EntityList.Count <= 0)
             {
                 return null;
             }

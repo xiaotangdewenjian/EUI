@@ -3,6 +3,7 @@ using System;
 
 namespace ET
 {
+    [FriendClass(typeof(Player))]
     //这个scene就是gate网关
     public class L2G_DisconnectHandler:AMActorRpcHandler<Scene, L2G_DisconnectGateUnit,G2L_DisconnectGateUnit>
     {
@@ -17,14 +18,14 @@ namespace ET
             }
 
             scene.GetComponent<GateSessionKeyComponent>().Remove(request.AccountID);
-            Session gsession = Game.EventSystem.Get(player.sessioninstanceid) as Session;
+            Session gsession = player.Session;
             if(gsession != null && !gsession.IsDisposed)
             {
                 gsession.Send(new A2C_Disconnect() { });
                 await TimerComponent.Instance.WaitAsync(1000);
                 gsession.Dispose();
             }
-            player.sessioninstanceid = 0;
+            player.Session.Dispose();
             player.AddComponent<PlayerOfflineOutTimeComponent>();//10秒后将玩家踢下线
             reply();
         }

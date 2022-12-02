@@ -18,8 +18,9 @@ namespace ET
 	        {
 		        numericComponent.Set(unitInfo.Ks[i], unitInfo.Vs[i]);
 	        }
-	        
-	        unit.AddComponent<MoveComponent>();
+            
+
+            unit.AddComponent<MoveComponent>();
 	        if (unitInfo.MoveInfo != null)
 	        {
 		        if (unitInfo.MoveInfo.X.Count > 0)
@@ -36,7 +37,7 @@ namespace ET
 			        }
 		        }
 	        }
-
+			
 	        unit.AddComponent<ObjectWait>();
 
 	        unit.AddComponent<XunLuoPathComponent>();

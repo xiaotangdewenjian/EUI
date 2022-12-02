@@ -8,6 +8,7 @@ namespace ET
     [FriendClass(typeof(SessionPlayerComponent))]
     [FriendClass(typeof(SessionStateComponent))]
     [FriendClass(typeof(PlayerComponent))]
+    [FriendClass(typeof(Player))]
     public class C2G_LoginGameGateHandler : AMRpcHandler<C2G_LoginGameGate, G2C_LoginGameGate>
     {
         protected override async ETTask Run(Session session, C2G_LoginGameGate request, G2C_LoginGameGate response, Action reply)
@@ -49,7 +50,7 @@ namespace ET
             {
                 player = session.DomainScene().GetComponent<PlayerComponent>().AddChildWithId<Player, long, long>(request.Account, request.Account, request.RoleId);
                 player.PlayerState = PlayerState.Gate;
-                player.sessioninstanceid = session.InstanceId;//player能拿到session实体
+                player.Session = session;//player能拿到session实体
                 session.DomainScene().GetComponent<PlayerComponent>().idPlayers.Add(player.AccountID,player);
                 //注意下面的是给session添加MailBoxComponent
                 session.AddComponent<MailBoxComponent, MailboxType>(MailboxType.GateSession);
@@ -58,6 +59,7 @@ namespace ET
             session.AddComponent<SessionPlayerComponent>().PlayerId = player.Id;//156
             session.GetComponent<SessionPlayerComponent>().PlayerInstanceId = player.InstanceId;//session能拿到player实体
             session.GetComponent<SessionPlayerComponent>().AccountID = player.AccountID;
+            player.Session = session;
             reply();
 
         }

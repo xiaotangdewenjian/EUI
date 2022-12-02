@@ -56,6 +56,10 @@ namespace ET
                 C2M_TransferMap c2MTransferMap = new C2M_TransferMap();
                 self.ZoneScene().GetComponent<SessionComponent>().Session.Call(c2MTransferMap).Coroutine();
             }
+            //if (UnityEngine.Input.GetKeyDown(KeyCode.P))
+            //{
+            //    self.ZoneScene().GetComponent<UIComponent>().ShowStackWindow(WindowID.WindowID_RoleInfo);
+            //}
         }
     }
 }

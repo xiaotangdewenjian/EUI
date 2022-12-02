@@ -10,5 +10,6 @@
         WindowID_Helper,   //提示界面
         WindowID_ChooseServer,
         WindowID_Role,
+        WindowID_RoleInfo,
     }
 }

@@ -31,7 +31,7 @@ namespace ET
 			M2C_CreateMyUnit m2CCreateUnits = new M2C_CreateMyUnit();
 			m2CCreateUnits.Unit = UnitHelper.CreateUnitInfo(unit);
 			MessageHelper.SendToClient(unit, m2CCreateUnits);
-			
+			 
 			// 加入aoi
 			unit.AddComponent<AOIEntity, int, Vector3>(9 * 1000, unit.Position);
 

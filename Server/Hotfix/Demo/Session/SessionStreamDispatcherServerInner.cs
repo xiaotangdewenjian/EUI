@@ -1,8 +1,10 @@
-﻿using System;
+﻿using ET.Demo;
+using System;
 using System.IO;
 
 namespace ET
 {
+    [FriendClass(typeof(Player))]
     [SessionStreamDispatcher(SessionStreamDispatcherType.SessionStreamDispatcherServerInner)]
     public class SessionStreamDispatcherServerInner: ISessionStreamDispatcher
     {
@@ -39,6 +41,13 @@ namespace ET
                         // 发送给客户端
                         memoryStream.Seek(Packet.OpcodeIndex, SeekOrigin.Begin);
                         gateSession.Send(0, memoryStream);
+                        return;
+                    }
+                    if (entity is Player player)
+                    {
+                        // 发送给客户端
+                        memoryStream.Seek(Packet.OpcodeIndex, SeekOrigin.Begin);
+                        player.Session.Send(0, memoryStream);
                         return;
                     }
                 }

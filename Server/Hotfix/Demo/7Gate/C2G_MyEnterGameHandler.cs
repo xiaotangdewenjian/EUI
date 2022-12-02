@@ -38,9 +38,16 @@ namespace ET
 
             (bool isNewPlayer, Unit unit) = await UnitHelper.LoadUnit(player);
 
-            unit.AddComponent<UnitGateComponent, long>(session.InstanceId);
+            //unit.AddComponent<UnitGateComponent, long>(session.InstanceId);
+            unit.AddComponent<UnitGateComponent, long>(player.InstanceId);//装的是Player....
 
-            StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "Map1");
+            await UnitHelper.InitUnit(unit, isNewPlayer);
+
+
+
+
+
+            StartSceneConfig startSceneConfig = StartSceneConfigCategory.Instance.Get(5);
             await TransferHelper.Transfer(unit, startSceneConfig.InstanceId, startSceneConfig.Name);
 
             player.UnitId = unit.Id; //15622//之前是roleid

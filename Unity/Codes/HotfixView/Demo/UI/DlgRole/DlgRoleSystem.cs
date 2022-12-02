@@ -30,6 +30,7 @@ namespace ET
         public static async void EnterGame(this DlgRole self)
 		{
 			LoginHelper.GetRole(self.DomainScene()).Coroutine();
+			await TimerComponent.Instance.WaitAsync(500);
 
 			self.DomainScene().GetComponent<RoleInfoComponent>().CurrentRoleID = self.DomainScene().GetComponent<RoleInfoComponent>().roleinfolist[0].Id;
 

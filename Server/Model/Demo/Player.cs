@@ -26,6 +26,6 @@
 
         public PlayerState PlayerState { get; set; }
 
-        public long sessioninstanceid { get; set; }
+        public Session Session;
     }
 }
